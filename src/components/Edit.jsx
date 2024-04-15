@@ -13,7 +13,7 @@ function Edit() {
     return (
         <>
             <button className='btn' onClick={handleShow}>
-                <i class="fa-regular fa-pen-to-square fa-2xl"></i>
+                <i className="fa-regular fa-pen-to-square fa-2xl"></i>
             </button>
 
             <Modal show={show} onHide={handleClose}>

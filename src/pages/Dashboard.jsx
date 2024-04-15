@@ -12,9 +12,9 @@ function Dashboard() {
       <Header/>
       <div className='p-4'>
         <h2>Dashboard</h2>
+          <Add/>
         <Row>
             <Col sm={12} md={8}>
-          <Add/>
               <div className='p-3 border border-3'>
                 <List/>
               </div>

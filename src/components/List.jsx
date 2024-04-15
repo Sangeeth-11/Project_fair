@@ -8,11 +8,11 @@ function List() {
             <h3>Project1</h3>
             <div>
                 <a href="" className='btn'>
-                <i class="fa-brands fa-github fa-2xl"></i>
+                <i className="fa-brands fa-github fa-2xl"></i>
                 </a>
                 <Edit/>
                 <button className='btn'>
-                <i class="fa-regular fa-trash-can fa-2xl"></i>
+                <i className="fa-regular fa-trash-can fa-2xl"></i>
                 </button>
             </div>
         </div>

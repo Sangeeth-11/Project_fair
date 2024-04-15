@@ -50,21 +50,18 @@ function Footer() {
             <MDBCol md="3" lg="2" xl="2" className='mx-auto mb-4 use'>
               <h6 className='text-uppercase fw-bold mb-4'>Useful links</h6>
               <p>
+                <Link to={'/'} className='footer_link'>Home</Link>
+              </p>
+              <p>
                 <Link to={'/login'} className='footer_link'>Login</Link>
               </p>
               <p>
-              <Link to={'/registration'} className='footer_link'>Registration</Link>
+                <Link to={'/dashboard'} className='footer_link'>Dashboard</Link>
               </p>
               <p>
-                <a href='#!' className='text-reset footer_link'>
-                  Projects
-                </a>
+                <Link to={'/projects'} className='footer_link'>Projects</Link>
               </p>
-              <p>
-                <a href='#!' className='text-reset footer_link'>
-                  Help
-                </a>
-              </p>
+              
             </MDBCol>
 
             <MDBCol md="2" lg="2" xl="2" className='mx-auto mb-4'>
@@ -91,7 +88,7 @@ function Footer() {
               </p>
             </MDBCol>
 
-            
+
 
             <MDBCol md="4" lg="3" xl="3" className='mx-auto mb-md-0 mb-4'>
               <h6 className='text-uppercase fw-bold mb-4'>Contact</h6>
