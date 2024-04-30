@@ -12,8 +12,8 @@ function Landing() {
           <Col className='p-5' sm={12} md={6}>
             <h1 style={{fontFamily:"cursive"}}>Project Fair</h1>
             <p style={{ textAlign: 'justify',fontFamily:"cursive" }}> Lorem ipsum dolor sit amet consectetur adipisicing uptate iure nisi ut soluta recusandae. Molestiae numquam incidunt velit nostrum aut nihil ducimus modi corporis omnis eligendi harum repudiandae, doloribus vel tempora totam, quaerat voluptates iusto ipsa dignissimos inventore dicta nam quis rerum consectetur! Provident, labore! Officiis placeat assumenda mollitia aspernatur, eaque voluptatibus facere molestiae repudiandae fugit atque?</p>
-            <button className='btn btn-warning' style={{ backgroundColor: 'hsla(36, 91%, 67%, 1)' }}>
-              Explore For More <i className="fa-solid fa-arrow-right fa-sm" style={{ color: '#fff' }}></i> </button>
+            <Link to={'login'}className='btn btn-warning' style={{ backgroundColor: 'hsla(36, 91%, 67%, 1)' }}>
+              Explore For More <i className="fa-solid fa-arrow-right fa-sm" style={{ color: '#fff' }}></i> </Link>
           </Col>
           <Col className='p-3' sm={12} md={6}>
             <img src="https://www.lexington.es/app/uploads/2019/07/trabajo-por-proyectos3.jpg" alt="" style={{ height: '100%', width: '80%' ,opacity:"0.5"}} className=' rounded-5' />
