@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
-// import './Auth.css'
+import {toast} from 'react-toastify'
+import { userRegister } from '../services/allApis'
+
 
 
 function Auth() {
@@ -11,8 +13,20 @@ function Auth() {
         SetStatus(!status)
     }
 
-    const handleRegister=()=>{
-      console.log(data);
+    const handleRegister=async()=>{
+      // console.log(data);
+      const {username,email,password} = data
+      if (!username || !email || !password) {
+        toast("Invalid inputs")
+      } else {
+        const result =await userRegister(data) 
+        if (result.status == 200) {
+          toast.success("registration success")
+          SetData({username:"",email:"",password:""})
+        } else {
+          toast.error(result.response.data)
+        }
+      }
     }
   return (
     <section style={{height:"60vh"}}>
@@ -77,17 +91,17 @@ function Auth() {
 
     
         <div className="mb-4">
-          <input type="text" id="form3Example3" className="form-control form-control-lg"
+          <input type="text" id="form3Example3" className="form-control form-control-lg" value={data.username}
             placeholder="Enter a User Name" onChange={(e)=>{SetData({...data,username:e.target.value})}}/>
         </div>
         <div className="mb-4">
-          <input type="email" id="form3Example3" className="form-control form-control-lg"
+          <input type="email" id="form3Example3" className="form-control form-control-lg" value={data.email}
             placeholder="Enter a valid email address" onChange={(e)=>{SetData({...data,email:e.target.value})}}/>
         </div>
 
       
         <div className=" mb-3">
-          <input type="password" id="form3Example4" className="form-control form-control-lg"
+          <input type="password" id="form3Example4" className="form-control form-control-lg" value={data.password}
             placeholder="Enter password" onChange={(e)=>{SetData({...data,password:e.target.value})}}/>
           
         </div>
