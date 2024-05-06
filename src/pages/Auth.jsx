@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {toast} from 'react-toastify'
-import { userRegister } from '../services/allApis'
+import { userLogin, userRegister } from '../services/allApis'
+import {useNavigate} from 'react-router-dom'
 
 
 
@@ -12,7 +13,7 @@ function Auth() {
     const changeStatus=()=>{
         SetStatus(!status)
     }
-
+      const navigate = useNavigate('')
     const handleRegister=async()=>{
       // console.log(data);
       const {username,email,password} = data
@@ -23,6 +24,23 @@ function Auth() {
         if (result.status == 200) {
           toast.success("registration success")
           SetData({username:"",email:"",password:""})
+        } else {
+          toast.error(result.response.data)
+        }
+      }
+    }
+
+    const handleLogin = async()=>{
+      const {email, password} = data
+      if (!email ||!password) {
+        toast.warning("invalid email and password")
+      } else {
+        const result = await userLogin({email,password})
+        if (result.status ==200) {
+          toast.success("Login successfull!!!")
+          sessionStorage.setItem("token",result.data.token)
+          sessionStorage.setItem("username",result.data.username)
+          navigate('/')
         } else {
           toast.error(result.response.data)
         }
@@ -47,14 +65,14 @@ function Auth() {
 
       
           <div className="mb-4">
-            <input type="email" id="form3Example3" className="form-control form-control-lg"
-              placeholder="Enter a valid email address" />
+            <input type="email" id="form3Example3" className="form-control form-control-lg" value={data.email}
+              placeholder="Enter a valid email address" onChange={(e)=>{SetData({...data,email:e.target.value})}}/>
           </div>
 
         
           <div className=" mb-3">
-            <input type="password" id="form3Example4" className="form-control form-control-lg"
-              placeholder="Enter password" />
+            <input type="password" id="form3Example4" className="form-control form-control-lg" value={data.password}
+              placeholder="Enter password" onChange={(e)=>{SetData({...data,password:e.target.value})}}/>
             
           </div>
 
@@ -71,7 +89,7 @@ function Auth() {
 
           <div className="text-center text-lg-start mt-4 pt-2">
             <button type="button" className="btn btn-primary btn-lg"
-              style={{paddingLeft: "2.5rem", paddingRight: "2.5rem"}}>Login</button>
+              style={{paddingLeft: "2.5rem", paddingRight: "2.5rem"}} onClick={handleLogin}>Login</button>
             <p className="small fw-bold mt-2 pt-1 mb-0">Don't have an account? 
             <span onClick={changeStatus} className='text-danger'>
 
