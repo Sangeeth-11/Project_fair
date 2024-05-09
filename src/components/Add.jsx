@@ -30,6 +30,21 @@ function Add() {
     }, [project.image])
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const handleAddProjects =()=>{
+        const {title , overview , language , github , demo ,image} = project
+        if (title && overview && language && github && demo && image) {
+            const formData = new FormData()
+            formData.append("title",title)
+            formData.append("overview",overview)
+            formData.append("language",language)
+            formData.append("github",github)
+            formData.append("demo",demo)
+            formData.append("image",image)
+        } else {
+            toast.error("All fields are required")
+        }
+    }
     return (
         <>
             <button className='btn btn-info m-3' onClick={handleShow}>
@@ -75,7 +90,7 @@ function Add() {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button variant="primary" onClick={handleAddProjects}>
                         Save
                     </Button>
                 </Modal.Footer>
