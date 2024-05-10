@@ -1,12 +1,12 @@
 import React from 'react'
 import { Card } from 'react-bootstrap'
-import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
 import {Row,Col} from 'react-bootstrap';
+import base_url from '../services/server_url';
 
 
-function ProjectCards() {
+function ProjectCards({project}) {
 
  const [show, setShow] = useState(false);
 
@@ -15,9 +15,9 @@ function ProjectCards() {
   return (
    <>
    <Card style={{ width: '18rem' }}>
-              <Card.Img onClick={handleShow} variant="top" src="https://png.pngtree.com/element_pic/16/12/25/97e6c42a95eb007792f94e4764ece9d2.jpg" />
+              <Card.Img onClick={handleShow} variant="top" src={`${base_url}/uploads/${project.image}`}  style={{height:"180px"}}/>
               <Card.Body>
-              <Card.Title>Project 1</Card.Title>
+              <Card.Title>{project.title}</Card.Title>
               </Card.Body>
                </Card>
 
@@ -26,18 +26,18 @@ function ProjectCards() {
         onHide={handleClose}>
 
         <Modal.Header closeButton>
-          <Modal.Title>Project 1</Modal.Title>
+          <Modal.Title>{project.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
 
             <Row>
-                <Col> <img className='img-fluid' src="https://png.pngtree.com/element_pic/16/12/25/97e6c42a95eb007792f94e4764ece9d2.jpg" alt="" />
+                <Col> <img className='img-fluid' src={`${base_url}/uploads/${project.image}`}  style={{height:"180px",width:"300px"}} alt="" />
                 </Col>
                 <Col>
                 <h2>
-                    Project1
+                {project.title}
                 </h2>
-                <h3>Overview</h3>
+                <h3>{project.title}</h3>
                 <h3>Technologies Used</h3>
                 <div className='d-flex justify-content-between'>
                     <a href=""><i className="fa-brands fa-github" style={{color: '#bca35c'}}></i> </a>

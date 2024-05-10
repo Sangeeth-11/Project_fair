@@ -2,17 +2,29 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import ProjectCards from '../components/ProjectCards';
+import { homeProject } from '../services/allApis';
 
 
 function Landing() {
   const [logStatus,SetLogStatus] = useState('false')
+  const [projects,SetProjects] = useState([])
   useEffect(()=>{
+    getData()
       if (sessionStorage.getItem("token")) {
         SetLogStatus("true")
       } else {
         SetLogStatus("false")
       }
   },[])
+  console.log(projects);
+  const getData =async()=>{
+    const result = await homeProject()
+    if (result.status ==200) {
+      SetProjects(result.data)
+    } else {
+      console.log(result.response.data);
+    }
+  }
   return (
     <>
       <div className='w-100 d-flex justify-content-center align-items-center' style={{ height: '100vh', backgroundColor: 'rgb(30, 30, 30)' ,color:"white"}}>
@@ -39,10 +51,15 @@ function Landing() {
         <h3 className='text-center'>Few Projects For You...</h3>
         <marquee behavior="" direction="left">
           <div className='d-flex justify-content-evenly mt-3'>
+            {
+              projects.length>0?
+              projects.map(item=>(
 
-            <ProjectCards />
-            <ProjectCards />
-            <ProjectCards />
+                <ProjectCards project={item}/>
+              )):
+              <h2>no projects</h2>
+            }
+            
 
           </div>
         </marquee>

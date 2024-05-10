@@ -6,6 +6,7 @@ import { useState } from 'react';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import { toast } from 'react-toastify';
+import { addProject } from '../services/allApis';
 
 
 
@@ -31,7 +32,7 @@ function Add() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const handleAddProjects =()=>{
+    const handleAddProjects =async()=>{
         const {title , overview , language , github , demo ,image} = project
         if (title && overview && language && github && demo && image) {
             const formData = new FormData()
@@ -41,6 +42,23 @@ function Add() {
             formData.append("github",github)
             formData.append("demo",demo)
             formData.append("image",image)
+
+            const header = {
+                "Content-Type":"multipart/form-data",
+                "Authorization":`Bearer ${sessionStorage.getItem("token")}`
+            }
+            const result = await addProject(formData,header)
+            if (result.status==200) {
+                toast.success('Project added Successfully')
+                setImagePreview("")
+                SetProject({
+                    "title": "", "overview": "", "language": "", "github": "", "demo": "", "image": ""
+                })
+                handleClose()
+            } else {
+                toast.error(result.response.data)
+                setImagePreview("")
+            }
         } else {
             toast.error("All fields are required")
         }
