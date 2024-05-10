@@ -6,15 +6,15 @@ import { homeProject } from '../services/allApis';
 
 
 function Landing() {
-  const [logStatus,SetLogStatus] = useState('false')
+  const [logStatus,SetLogStatus] = useState(true)
   const [projects,SetProjects] = useState([])
   useEffect(()=>{
+    if (sessionStorage.getItem("token")) {
+      SetLogStatus(true)
+    } else {
+      SetLogStatus(false)
+    }
     getData()
-      if (sessionStorage.getItem("token")) {
-        SetLogStatus("true")
-      } else {
-        SetLogStatus("false")
-      }
   },[])
   console.log(projects);
   const getData =async()=>{
@@ -35,7 +35,7 @@ function Landing() {
             {
               logStatus?
             <Link to={'dashboard'}className='btn btn-warning' style={{ backgroundColor: 'hsla(36, 91%, 67%, 1)' }}>
-              Manage your Prrojects <i className="fa-solid fa-arrow-right fa-sm" style={{ color: '#fff' }}></i> </Link>:
+              Manage your Projects <i className="fa-solid fa-arrow-right fa-sm" style={{ color: '#fff' }}></i> </Link>:
             <Link to={'login'}className='btn btn-warning' style={{ backgroundColor: 'hsla(36, 91%, 67%, 1)' }}>
               Explore For More <i className="fa-solid fa-arrow-right fa-sm" style={{ color: '#fff' }}></i> </Link>
             

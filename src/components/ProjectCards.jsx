@@ -37,8 +37,8 @@ function ProjectCards({project}) {
                 <h2>
                 {project.title}
                 </h2>
-                <h3>{project.title}</h3>
-                <h3>Technologies Used</h3>
+                <h6>{project.overview}</h6>
+                <h6>Languages Used-{project.language}</h6>
                 <div className='d-flex justify-content-between'>
                     <a href=""><i className="fa-brands fa-github" style={{color: '#bca35c'}}></i> </a>
                     <a href=""> <i class="fa-solid fa-link" style={{color: '#bca35c'}}></i></a>
