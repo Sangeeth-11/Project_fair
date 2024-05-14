@@ -18,3 +18,9 @@ export const homeProject = async()=>{
 export const allProject = async(header)=>{
     return await commonApi("GET",`${base_url}/all-project`,"",header)
 }
+export const userProject = async(header)=>{
+    return await commonApi("GET",`${base_url}/user-project`,"",header)
+}
+export const editProject = async(data,header,id)=>{
+    return await commonApi("PUT",`${base_url}/edit-project/${id}`,data,header)
+}

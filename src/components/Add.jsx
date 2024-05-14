@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -7,10 +7,13 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import { toast } from 'react-toastify';
 import { addProject } from '../services/allApis';
+import {addProjectResponseContext} from '../Context_api/ContextShare'
+
 
 
 
 function Add() {
+    const {SetAddResponse}=useContext(addProjectResponseContext)
     const [show, setShow] = useState(false);
     const [project, SetProject] = useState({
         "title": "", "overview": "", "language": "", "github": "", "demo": "", "image": ""
@@ -49,12 +52,13 @@ function Add() {
             }
             const result = await addProject(formData,header)
             if (result.status==200) {
+                handleClose()
                 toast.success('Project added Successfully')
                 setImagePreview("")
+                SetAddResponse(result)
                 SetProject({
                     "title": "", "overview": "", "language": "", "github": "", "demo": "", "image": ""
                 })
-                handleClose()
             } else {
                 toast.error(result.response.data)
                 setImagePreview("")

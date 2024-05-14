@@ -2,15 +2,20 @@ import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import ProjectCards from '../components/ProjectCards'
 import { allProject } from '../services/allApis'
+import { Col, Row } from 'react-bootstrap'
+import { toast } from 'react-toastify'
+import Auth from './Auth'
 
 function Projects() {
   const [projects, SetProjects] = useState([])
+  const [logStatus, SetLogStatus] = useState(false)
   useEffect(() => {
     if (sessionStorage.getItem("token")) {
-
+      SetLogStatus(true)
       getData()
     } else {
-      console.log("login first");
+      toast.warning("login first to view the projects");
+      console.log("login");
     }
   }, [])
   const getData = async () => {
@@ -25,17 +30,34 @@ function Projects() {
   }
   return (
     <>
-      <Header status={true} />
-      <h2>All Projects</h2>
-      <div className='p-5'>
-        {
-          projects.length > 0 ?
-            projects.map(item => (
-              <ProjectCards project={item} />
-            )) :
-            <h2>no projects</h2>
-        }
-      </div>
+      {
+        logStatus ?
+        <div>
+          <Header status={true} />
+          <h2>All Projects</h2>
+
+          <div className='p-5'>
+
+            <Row>
+              {
+                projects.length > 0 ?
+                  projects.map(item => (
+                    <Col>
+
+                      <ProjectCards project={item} />
+                    </Col>
+                  ))
+
+                  :
+                  <h2>no projects</h2>
+              }
+            </Row>
+
+          </div>
+        </div>
+          :
+          <Auth />
+      }
     </>
   )
 }
