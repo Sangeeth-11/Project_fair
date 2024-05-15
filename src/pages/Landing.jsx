@@ -3,6 +3,7 @@ import { Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import ProjectCards from '../components/ProjectCards';
 import { homeProject } from '../services/allApis';
+import { toast } from 'react-toastify';
 
 
 function Landing() {

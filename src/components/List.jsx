@@ -1,7 +1,26 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Edit from './Edit'
+import { deleteProject } from '../services/allApis'
+import { toast } from 'react-toastify'
+import { deleteProjectResponseContext } from '../Context_api/ContextShare'
 
 function List({projects}) {
+  const {SetDeleteResponse} = useContext(deleteProjectResponseContext)
+
+
+  const handleDelete=async(id)=>{
+    const header ={
+      "Content-Type":"application/json",
+      "Authorization":`Bearer ${sessionStorage.getItem("token")}`
+    }
+    const result = await deleteProject(header,id)
+    if (result.status == 200) {
+      SetDeleteResponse(result)
+      toast.success("Project Deleted")
+    } else {
+      toast.error("Deleteion Failed")
+    }
+  }
   return (
     <>
     {
@@ -15,7 +34,7 @@ function List({projects}) {
                 <i className="fa-brands fa-github fa-2xl"></i>
                 </a>
                 <Edit project={item}/>
-                <button className='btn'>
+                <button className='btn' onClick={()=>{handleDelete(item._id)}}>
                 <i className="fa-regular fa-trash-can fa-2xl"></i>
                 </button>
             </div>

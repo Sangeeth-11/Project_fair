@@ -15,12 +15,15 @@ export const homeProject = async()=>{
     return await commonApi("GET",`${base_url}/home-project`,"","")
 }
 
-export const allProject = async(header)=>{
-    return await commonApi("GET",`${base_url}/all-project`,"",header)
+export const allProject = async(header,search)=>{
+    return await commonApi("GET",`${base_url}/all-project?search`,"",header)
 }
 export const userProject = async(header)=>{
     return await commonApi("GET",`${base_url}/user-project`,"",header)
 }
 export const editProject = async(data,header,id)=>{
     return await commonApi("PUT",`${base_url}/edit-project/${id}`,data,header)
+}
+export const deleteProject = async(header,id)=>{
+    return await commonApi("DELETE",`${base_url}/delete-project/${id}`,{},header)
 }

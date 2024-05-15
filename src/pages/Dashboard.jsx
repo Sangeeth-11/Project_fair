@@ -5,12 +5,13 @@ import Profile from '../components/Profile'
 import List from '../components/List'
 import Add from '../components/Add'
 import { userProject } from '../services/allApis'
-import {addProjectResponseContext, editProjectResponseContext} from '../Context_api/ContextShare'
+import {addProjectResponseContext, deleteProjectResponseContext, editProjectResponseContext} from '../Context_api/ContextShare'
 
  
 function Dashboard() {
   const {addResponse,SetAddResponse}=useContext(addProjectResponseContext)
   const {editResponse,SetEditResponse}=useContext(editProjectResponseContext)
+  const {deleteResponse}=useContext(deleteProjectResponseContext)
   const [user,SetUser]= useState('')
   const [projects,SetProjects] = useState([])
   useEffect(()=>{
@@ -20,7 +21,7 @@ function Dashboard() {
     } else {
       console.log("login first")
     }
-  },[addResponse,editResponse])
+  },[addResponse,editResponse,deleteResponse])
  
   console.log(projects);
   const getData =async()=>{
