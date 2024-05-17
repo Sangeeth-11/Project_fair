@@ -32,7 +32,10 @@ function Add() {
             }
         }
     }, [project.image])
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setImagePreview("")
+        setShow(false)
+    }
     const handleShow = () => setShow(true);
 
     const handleAddProjects =async()=>{

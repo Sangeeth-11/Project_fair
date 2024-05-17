@@ -11,19 +11,21 @@ import "./bootstrap.min.css"
 import Auth from './pages/Auth'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import { useContext } from 'react'
+import { tokenAuthContext } from './Context_api/AuthContext'
 
 
 function App() {
  
-
+const {authStatus} = useContext(tokenAuthContext)
   return (
     <>
     {/* <Header/> */}
       <Routes>
         <Route path='/' element={<Landing/>}/>
-        <Route path='/dashboard' element={<Dashboard/>}/>
+        <Route path='/dashboard' element={authStatus?<Dashboard/>:<Landing/>}/>
         <Route path='/login' element={<Auth/>}/>
-        <Route path='/projects' element={<Projects/>}/>
+        <Route path='/projects' element={authStatus?<Projects/>:<Landing/>}/>
       </Routes>
       <Footer/>
       <ToastContainer/>

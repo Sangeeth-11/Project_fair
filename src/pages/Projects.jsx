@@ -8,18 +8,18 @@ import Auth from './Auth'
 
 function Projects() {
   const [projects, SetProjects] = useState([])
-  const [logStatus, SetLogStatus] = useState(false)
   const [search,SetSearch] = useState("")
   useEffect(() => {
     console.log("useEffect is running...");
     if (sessionStorage.getItem("token")) {
-      SetLogStatus(true)
+      
       getData()
     } else {
       toast.warning("login first to view the projects");
       console.log("login");
     }
   }, [search])
+  
   const getData = async () => {
     const header = { "Authorization": `Bearer ${sessionStorage.getItem("token")}` }
     const result = await allProject(header,search)
@@ -32,10 +32,9 @@ function Projects() {
   }
   return (
     <>
-      {
-        logStatus ?
+      
           <div>
-            <Header status={true} />
+            <Header status={false} />
             <div className='d-flex justify-content-between p-5'>
               <h2>All Projects</h2>
               <input type='text' name='' id="" className='form-control w-25' placeholder='Enter Language to search' onChange={(e)=>{SetSearch(e.target.value)}} />
@@ -60,9 +59,7 @@ function Projects() {
 
             </div>
           </div>
-          :
-          <Auth />
-      }
+          
     </>
   )
 }

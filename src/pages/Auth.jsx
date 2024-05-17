@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {toast} from 'react-toastify'
 import { userLogin, userRegister } from '../services/allApis'
 import {useNavigate} from 'react-router-dom'
+import { tokenAuthContext } from '../Context_api/AuthContext'
 
 
 
 function Auth() {
+  const {SetAuthStatus} = useContext(tokenAuthContext)
     const [status,SetStatus]= useState(true)
     const [data,SetData]=useState({
       username:"",password:"",email:""
@@ -40,7 +42,9 @@ function Auth() {
           toast.success("Login successfull!!!")
           sessionStorage.setItem("token",result.data.token)
           sessionStorage.setItem("username",result.data.username)
+          sessionStorage.setItem("userDetails",JSON.stringify(result.data.userDetails))
           navigate('/')
+          SetAuthStatus(true)
         } else {
           toast.error(result.response.data)
         }

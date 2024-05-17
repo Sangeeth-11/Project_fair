@@ -35,9 +35,9 @@ function Landing() {
             <p style={{ textAlign: 'justify',fontFamily:"cursive" }}> Lorem ipsum dolor sit amet consectetur adipisicing uptate iure nisi ut soluta recusandae. Molestiae numquam incidunt velit nostrum aut nihil ducimus modi corporis omnis eligendi harum repudiandae, doloribus vel tempora totam, quaerat voluptates iusto ipsa dignissimos inventore dicta nam quis rerum consectetur! Provident, labore! Officiis placeat assumenda mollitia aspernatur, eaque voluptatibus facere molestiae repudiandae fugit atque?</p>
             {
               logStatus?
-            <Link to={'dashboard'}className='btn btn-warning' style={{ backgroundColor: 'hsla(36, 91%, 67%, 1)' }}>
+            <Link to={'/dashboard'}className='btn btn-warning' style={{ backgroundColor: 'hsla(36, 91%, 67%, 1)' }}>
               Manage your Projects <i className="fa-solid fa-arrow-right fa-sm" style={{ color: '#fff' }}></i> </Link>:
-            <Link to={'login'}className='btn btn-warning' style={{ backgroundColor: 'hsla(36, 91%, 67%, 1)' }}>
+            <Link to={'/login'}className='btn btn-warning' style={{ backgroundColor: 'hsla(36, 91%, 67%, 1)' }}>
               Explore For More <i className="fa-solid fa-arrow-right fa-sm" style={{ color: '#fff' }}></i> </Link>
             
             }

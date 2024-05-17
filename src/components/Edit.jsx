@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import { editProjectResponseContext } from '../Context_api/ContextShare';
 
 function Edit({project}) {
-    const {editResponse,SetEditResponse} = useContext(editProjectResponseContext)
+    const {SetEditResponse} = useContext(editProjectResponseContext)
     const [projectData,SetProjectData]=useState({...project,image:""})
     const [show, setShow] = useState(false);
 
@@ -51,6 +51,7 @@ function Edit({project}) {
                     handleClose()
                     toast.success("Project Updated successfully!!")
                     SetEditResponse(result)
+                    
                 } else {
                     toast.error(result.response.data)
                 }
@@ -78,7 +79,7 @@ function Edit({project}) {
     const handleClose = () => {
         setShow(false)
         setImagePreview("")
-        SetProjectData({...project,image:""})
+        SetProjectData({...projectData,image:""})
     };
     const handleShow = () => setShow(true);
     return (
