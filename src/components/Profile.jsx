@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import base_url from '../services/server_url'
+import { editProfile } from '../services/allApis'
+import { toast } from 'react-toastify'
 
 function Profile() {
   const [open, SetOpen] = useState(false)
   const [user,SetUser] = useState({
-    id:"",email:"",username:"",github:"",linkdin:"",profile:""
+    id:"",email:"",username:"",password:"",github:"",linkdin:"",profile:""
   })
   const [imagePreview,setImagePreview] = useState("")
   const [existingProfile,SetExistingProfile] = useState("")
@@ -13,7 +15,7 @@ function Profile() {
     if (sessionStorage.getItem('token')) {
       const userDetails = JSON.parse(sessionStorage.getItem('userDetails'))
       SetUser({
-        id:userDetails._id,email:userDetails.email,username:userDetails.username,github:userDetails.github,linkdin:userDetails.linkdin
+        id:userDetails._id,email:userDetails.email,username:userDetails.username,github:userDetails.github,linkdin:userDetails.linkdin,password:userDetails.password
       })
       SetExistingProfile(userDetails.profile)
     } 
@@ -26,6 +28,33 @@ function Profile() {
       setImagePreview("")
     }
   },[user])
+console.log(user);
+  const handleProfileUpdate=async()=>{
+    const {username,email,password,github,linkdin} = user
+    if (!username ) {
+      toast.success("no username");
+    } else {
+      const formData =new FormData()
+      formData.append("username",username)
+      formData.append("email",email)
+      formData.append("password",password)
+      formData.append("github",github)
+      formData.append("linkdin",linkdin)
+      formData.append("profile",imagePreview?user.profile:existingProfile)
+      const header ={
+        "Authorization":`Bearer ${sessionStorage.getItem('token')}`,
+        "Content-Type":imagePreview?"multipart/form-data":"application/json"
+      }
+      const result = await editProfile(formData,header)
+      if (result.status==200) {
+        toast.success("profile updated successfully")
+        sessionStorage.setItem('userDetails',JSON.stringify(result.data))
+        SetOpen(!open)
+      } else {
+        toast.error(result.response.data)
+      }
+    }
+  }
   return (
     <>
       <div className='m-1 p-3 border shadow'>
@@ -54,7 +83,7 @@ function Profile() {
             <input type="text" name="" id="" onChange={(e)=>{SetUser({...user,github:e.target.value})}}  value={user?.github} placeholder='GitHub Id' className='form-control mt-3' />
             <div className='d-grid mt-4'>
 
-            <button className=' btn btn-warning btn-block'>Update</button>
+            <button className=' btn btn-warning btn-block' onClick={handleProfileUpdate}>Update</button>
             </div>
           </div>
         }
